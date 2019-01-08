@@ -40,6 +40,13 @@ const defaultState = fromJS({
         titie:'如何用手账做周计划和日计划？方法大揭秘',
         desc:'自从知道成长和手账以来，已经过了3年多，我也算是个手账3年生了。这一年多来，周计划和日计划的方法基本没有变化，今天就来跟小伙伴...',
         imgUrl:'https://oimagea5.ydstatic.com/image?id=-7344007761557059132&product=adpublish&w=300&h=200&sc=0&rm=2&gsb=0&gsbd=60'
+    }],
+    recommendList: [{
+        id:1,
+        imgUrl:'https://cdn2.jianshu.io/assets/web/banner-s-3-7123fd94750759acf7eca05b871e9d17.png'
+    },{
+        id:1,
+        imgUrl:'//cdn2.jianshu.io/assets/web/banner-s-4-b70da70d679593510ac93a172dfbaeaa.png'
     }]
 });
 
