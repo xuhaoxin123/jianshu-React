@@ -1,14 +1,21 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
+import axios from 'axios';
 import Topic from './components/Topic';
 import List from './components/List';
 import Recommend from './components/Recommend';
 import Writer from './components/Writer';
-import {HomeWrapper ,HomeLeft ,HomeRight } from './style';
+import {HomeWrapper ,HomeLeft ,HomeRight , BackTop} from './style';
+import { actionCreators } from './store/index';
 class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {  };
     }
+    handleScrollTop() {
+        window.scrollTo(0,0);
+    }
+
     render() {
         return (
             <div>
@@ -24,9 +31,44 @@ class Home extends Component {
                             <Writer/>
                         </HomeRight>
                    </HomeWrapper>
+                   {this.props.showScroll?<BackTop onClick={this.handleScrollTop}>返回顶部</BackTop> : null}
             </div>
         );
     }
+    componentDidMount() {
+       this.props.changeHomeData();
+       this.bindEvents();
+    }
+
+    //组件销毁
+	componentWillUnmount() {
+		window.removeEventListener('scroll', this.props.changeScrollTopShow);
+	}
+
+
+    bindEvents() {
+        window.addEventListener('scroll' , this.props.changeScrollTopShow)
+    }
 }
 
-export default Home;
+const mapState =((state)=>({
+        showScroll :state.getIn(['home','showScroll'])
+}))
+
+
+const mapDispathToProps= (dispatch)=>({
+    changeHomeData(){
+    const action = actionCreators.getHomeInfo();
+    dispatch(action);
+    },
+    changeScrollTopShow(){
+        
+        console.log(document.documentElement.scrollTop)
+        if(document.documentElement.scrollTop>400){
+               dispatch(actionCreators.toggleTopShow(true)) 
+        }else{
+               dispatch(actionCreators.toggleTopShow(false)) 
+        }
+    }
+})
+export default connect(mapState,mapDispathToProps)(Home);

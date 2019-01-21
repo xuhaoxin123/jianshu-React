@@ -1,57 +1,41 @@
 
 import { fromJS } from "immutable";
-
+import *as constants from './constants';
 const defaultState = fromJS({
-    topicList:[{
-        id:1,
-        titie:'社会热点',
-        imgUrl:'//upload.jianshu.io/admin_banners/web_images/4596/1686f2fe090d3a75481c6fad69aba5396f82d260.png?imageMogr2/auto-orient/strip|imageView2/1/w/1250/h/540'
-    },{
-        id:2,
-        titie:'手绘',
-        imgUrl:'//upload.jianshu.io/admin_banners/web_images/4596/1686f2fe090d3a75481c6fad69aba5396f82d260.png?imageMogr2/auto-orient/strip|imageView2/1/w/1250/h/540'
-    },{
-        id:3,
-        titie:'社会热点',
-        imgUrl:'//upload.jianshu.io/admin_banners/web_images/4596/1686f2fe090d3a75481c6fad69aba5396f82d260.png?imageMogr2/auto-orient/strip|imageView2/1/w/1250/h/540'
-    }],
-    articleList: [{
-        id:1,
-        titie:'如何用手账做周计划和日计划？方法大揭秘',
-        desc:'自从知道成长和手账以来，已经过了3年多，我也算是个手账3年生了。这一年多来，周计划和日计划的方法基本没有变化，今天就来跟小伙伴...',
-        imgUrl:'https://oimagea5.ydstatic.com/image?id=-7344007761557059132&product=adpublish&w=300&h=200&sc=0&rm=2&gsb=0&gsbd=60'
-    },{
-        id:2,
-        titie:'如何用手账做周计划和日计划？方法大揭秘',
-        desc:'自从知道成长和手账以来，已经过了3年多，我也算是个手账3年生了。这一年多来，周计划和日计划的方法基本没有变化，今天就来跟小伙伴...',
-        imgUrl:'https://oimagea5.ydstatic.com/image?id=-7344007761557059132&product=adpublish&w=300&h=200&sc=0&rm=2&gsb=0&gsbd=60'
-    },{
-        id:3,
-        titie:'如何用手账做周计划和日计划？方法大揭秘',
-        desc:'自从知道成长和手账以来，已经过了3年多，我也算是个手账3年生了。这一年多来，周计划和日计划的方法基本没有变化，今天就来跟小伙伴...',
-        imgUrl:'https://oimagea5.ydstatic.com/image?id=-7344007761557059132&product=adpublish&w=300&h=200&sc=0&rm=2&gsb=0&gsbd=60'
-    },{
-        id:4,
-        titie:'如何用手账做周计划和日计划？方法大揭秘',
-        desc:'自从知道成长和手账以来，已经过了3年多，我也算是个手账3年生了。这一年多来，周计划和日计划的方法基本没有变化，今天就来跟小伙伴...',
-        imgUrl:'https://oimagea5.ydstatic.com/image?id=-7344007761557059132&product=adpublish&w=300&h=200&sc=0&rm=2&gsb=0&gsbd=60'
-    },{
-        id:5,
-        titie:'如何用手账做周计划和日计划？方法大揭秘',
-        desc:'自从知道成长和手账以来，已经过了3年多，我也算是个手账3年生了。这一年多来，周计划和日计划的方法基本没有变化，今天就来跟小伙伴...',
-        imgUrl:'https://oimagea5.ydstatic.com/image?id=-7344007761557059132&product=adpublish&w=300&h=200&sc=0&rm=2&gsb=0&gsbd=60'
-    }],
-    recommendList: [{
-        id:1,
-        imgUrl:'https://cdn2.jianshu.io/assets/web/banner-s-3-7123fd94750759acf7eca05b871e9d17.png'
-    },{
-        id:1,
-        imgUrl:'//cdn2.jianshu.io/assets/web/banner-s-4-b70da70d679593510ac93a172dfbaeaa.png'
-    }]
+    topicList:[],
+    articleList: [],
+    recommendList: [],
+    articlePage:1,
+    showScroll:false
 });
+
+
+const ChangeHomeData = (state , action) => {
+    return state.merge({
+        'topicList':fromJS(action.topicList),
+        'articleList':fromJS(action.articleList),
+        'recommendList':fromJS(action.recommendList)
+    })
+}
+
+const addArticleList = (state , action) => {
+    return   state.merge({
+        'articleList':state.get('articleList').concat(action.list),
+        'articlePage':action.nextPage
+       })
+}
 
 export default (state = defaultState, action) => {
   switch (action.type) {
+      case constants.CHANGE_HOME_DATA:
+        return  ChangeHomeData(state, action)
+
+      case constants.ADD_ARTYCLE_LIST:
+        return  addArticleList(state, action)
+       
+       case constants.TOGGLE_SCROLL_TOP:
+
+       return state.set('showScroll', action.show)
       default:
       return state;
   }

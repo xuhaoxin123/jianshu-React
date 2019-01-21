@@ -123,3 +123,11 @@ export const BackTop = styled.div`
 	border: 1px solid #ccc;
 	font-size: 14px;
 `
+
+export const Writers = styled.div`
+	width:278px;
+	height:300px;
+	line-height:300px;
+	border:solid 1px ;
+	text-align:center;
+`

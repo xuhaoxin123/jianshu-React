@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Writers} from '../style';
 class Writer extends Component {
     constructor(props) {
         super(props);
@@ -6,9 +7,9 @@ class Writer extends Component {
     }
     render() {
         return (
-            <div>
+            <Writers>
                     Writer
-            </div>
+            </Writers>
         );
     }
 }
