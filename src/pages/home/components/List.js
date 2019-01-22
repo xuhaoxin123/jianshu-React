@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import { actionCreators } from '../store';
 import {ListItem , ListInfo ,LoadMore} from '../style';
-import { Link } from 'react-router-dom';
+import { BrowserRouter as Router, Link } from "react-router-dom";
 class List extends Component {
     constructor(props) {
         super(props);
